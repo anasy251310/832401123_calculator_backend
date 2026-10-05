@@ -1,3 +1,4 @@
+import math
 from asteval import Interpreter
 
 
@@ -25,6 +26,26 @@ def calculate_expression(expression: str):
     expr = normalize_expression(expression).strip()
 
     aeval = Interpreter()
+
+    aeval.symtable.update({
+        'sin': math.sin,
+        'cos': math.cos,
+        'tan': math.tan,
+        'asin': math.asin,
+        'acos': math.acos,
+        'atan': math.atan,
+        'sqrt': math.sqrt,
+        'abs': abs,
+        'log': math.log,
+        'log10': math.log10,
+        'exp': math.exp,
+        'pow': pow,
+        'pi': math.pi,
+        'e': math.e,
+        'floor': math.floor,
+        'ceil': math.ceil,
+    })
+
     result = aeval(expr)
 
     if aeval.error:

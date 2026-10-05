@@ -55,3 +55,12 @@ def delete_history(record_id):
     deleted = cursor.rowcount > 0
     conn.close()
     return deleted
+
+
+def clear_all_history():
+    conn = get_connection()
+    cursor = conn.execute('DELETE FROM calculation_history')
+    conn.commit()
+    deleted = cursor.rowcount
+    conn.close()
+    return deleted

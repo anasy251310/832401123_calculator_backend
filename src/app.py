@@ -2,7 +2,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 from calculator import calculate_expression
-from database import init_db, save_history, get_all_history, delete_history
+from database import (
+    init_db, save_history, get_all_history,
+    delete_history, clear_all_history
+)
 
 app = Flask(__name__)
 CORS(app)
@@ -67,6 +70,15 @@ def delete_record(record_id):
         "success": False,
         "message": "记录不存在"
     }), 404
+
+
+@app.route('/api/history', methods=['DELETE'])
+def clear_history():
+    count = clear_all_history()
+    return jsonify({
+        "success": True,
+        "message": f"已清空 {count} 条记录"
+    })
 
 
 if __name__ == '__main__':
